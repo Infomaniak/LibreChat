@@ -9,10 +9,9 @@ const passport = require('passport');
 const mongoSanitize = require('express-mongo-sanitize');
 const fs = require('fs');
 const cookieParser = require('cookie-parser');
-const { jwtLogin, passportLogin } = require('~/strategies');
+const { jwtLogin, jwtCustom, passportLogin, ldapLogin } = require('~/strategies');
 const { connectDb, indexSync } = require('~/lib/db');
 const { isEnabled } = require('~/server/utils');
-const { ldapLogin } = require('~/strategies');
 const { logger } = require('~/config');
 const validateImageRequest = require('./middleware/validateImageRequest');
 const errorController = require('./controllers/ErrorController');
@@ -70,7 +69,11 @@ const startServer = async () => {
 
   /* OAUTH */
   app.use(passport.initialize());
-  passport.use(await jwtLogin());
+  passport.use(
+    process.env.JWT_CUSTOM_STRATEGY_PATH
+      ? (await jwtCustom()?.jwtLogin()) || (await jwtLogin())
+      : await jwtLogin(),
+  );
   passport.use(passportLogin());
 
   /* LDAP Auth */

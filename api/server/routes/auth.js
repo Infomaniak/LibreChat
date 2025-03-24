@@ -29,12 +29,19 @@ const {
   validateRegistration,
   validatePasswordReset,
 } = require('~/server/middleware');
+const { jwtCustom } = require('~/strategies');
 
 const router = express.Router();
 
 const ldapAuth = !!process.env.LDAP_URL && !!process.env.LDAP_USER_SEARCH_BASE;
 //Local
-router.post('/logout', requireJwtAuth, logoutController);
+router.post(
+  '/logout',
+  requireJwtAuth,
+  process.env.JWT_CUSTOM_STRATEGY_PATH
+    ? jwtCustom()?.logoutController || logoutController
+    : logoutController,
+);
 router.post(
   '/login',
   logHeaders,
@@ -44,7 +51,12 @@ router.post(
   setBalanceConfig,
   loginController,
 );
-router.post('/refresh', refreshController);
+router.post(
+  '/refresh',
+  process.env.JWT_CUSTOM_STRATEGY_PATH
+    ? jwtCustom()?.refreshController || refreshController
+    : refreshController,
+);
 router.post(
   '/register',
   registerLimiter,

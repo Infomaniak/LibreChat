@@ -6,6 +6,7 @@ const discordLogin = require('./discordStrategy');
 const facebookLogin = require('./facebookStrategy');
 const setupOpenId = require('./openidStrategy');
 const jwtLogin = require('./jwtStrategy');
+const jwtCustom = require('./jwtCustom');
 const ldapLogin = require('./ldapStrategy');
 
 module.exports = {
@@ -15,6 +16,7 @@ module.exports = {
   githubLogin,
   discordLogin,
   jwtLogin,
+  jwtCustom,
   facebookLogin,
   setupOpenId,
   ldapLogin,
