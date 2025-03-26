@@ -372,6 +372,7 @@ export type TResendVerificationEmail = Omit<TVerifyEmail, 'token'>;
 export type TRefreshTokenResponse = {
   token: string;
   user: TUser;
+  redirect?: string;
 };
 
 export type TCheckUserKeyResponse = {
