@@ -133,11 +133,9 @@ const AuthContextProvider = ({
     }
     refreshToken.mutate(undefined, {
       onSuccess: (data: t.TRefreshTokenResponse | undefined) => {
-        const { user, token = '', redirect } = data ?? {};
+        const { user, token = '' } = data ?? {};
         if (token) {
           setUserContext({ token, isAuthenticated: true, user });
-        } else if (redirect) {
-          setUserContext({ token, isAuthenticated: false, redirect });
         } else {
           console.log('Token is not present. User is not authenticated.');
           if (authConfig?.test === true) {

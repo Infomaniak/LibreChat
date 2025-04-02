@@ -98,6 +98,11 @@ axios.interceptors.response.use(
       return Promise.reject(error);
     }
 
+    if (error.response.status === 401 && error.response.data?.redirect) {
+      window.location.href = error.response.data.redirect;
+      return Promise.reject(error);
+    }
+
     if (error.response.status === 401 && !originalRequest._retry) {
       console.warn('401 error, refreshing token');
       originalRequest._retry = true;
