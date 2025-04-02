@@ -57,7 +57,6 @@ export type TSubmission = {
   isTemporary: boolean;
   messages: TMessage[];
   isRegenerate?: boolean;
-  conversationId?: string;
   initialResponse?: TMessage;
   conversation: Partial<TConversation>;
   endpointOption: TEndpointOption;
@@ -115,6 +114,7 @@ export type TUser = {
   role: string;
   provider: string;
   plugins?: string[];
+  twoFactorEnabled?: boolean;
   backupCodes?: TBackupCode[];
   createdAt: string;
   updatedAt: string;
