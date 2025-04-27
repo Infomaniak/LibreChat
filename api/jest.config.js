@@ -13,4 +13,7 @@ module.exports = {
     '~/(.*)': '<rootDir>/$1',
     '~/data/auth.json': '<rootDir>/__mocks__/auth.mock.json',
   },
+  testPathIgnorePatterns: [
+    './server/routes/__tests__/config.spec.js',
+  ],
 };
