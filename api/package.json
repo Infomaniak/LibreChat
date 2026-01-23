@@ -77,7 +77,7 @@
     "langchain": "^0.2.19",
     "librechat-data-provider": "*",
     "librechat-mcp": "*",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "meilisearch": "^0.38.0",
     "memorystore": "^1.6.7",
     "mime": "^3.0.0",
